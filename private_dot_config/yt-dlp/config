@@ -1,0 +1,19 @@
+# --format "ba"
+# --output "[%(upload_date)s] %(title)s (%(id)s).opus"
+--merge-output-format mkv
+--output "[%(upload_date)s] %(title)s (%(id)s).%(ext)s"
+
+--embed-subs
+--sub-langs all,-live_chat
+
+--embed-info-json
+--embed-chapters
+--embed-thumbnail
+--embed-metadata
+# --downloader aria2c
+
+--playlist-random
+# --lazy-playlist
+
+--geo-bypass
+--geo-bypass-country JP

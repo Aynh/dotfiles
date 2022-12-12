@@ -1,0 +1,18 @@
+[user]
+	email = 99479536+Aynh@users.noreply.github.com
+	name = Aynh
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[safe]
+	directory = /usr/lib/vlang/thirdparty/tcc
+	directory = /opt/flutter
+[push]
+	autoSetupRemote = true
