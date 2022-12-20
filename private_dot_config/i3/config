@@ -30,6 +30,9 @@ exec --no-startup-id greenclip daemon
 # fcitx5 input
 exec --no-startup-id fcitx5 -d
 
+# NetworkManager systray
+exec --no-startup-id nm-applet 
+
 # screen locker
 set $locker betterlockscreen --lock dimblur
 exec --no-startup-id xidlehook --detect-sleep \
