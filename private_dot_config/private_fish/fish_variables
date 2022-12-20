@@ -1,10 +1,10 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export ALL_PROXY:http\x3a//192\x2e168\x2e240\x2e245\x3a8080
+SETUVAR --export ALL_PROXY:
 SETUVAR --export BROWSER:/usr/bin/librewolf
 SETUVAR --export EDITOR:nvim
-SETUVAR --export HTTPS_PROXY:http\x3a//192\x2e168\x2e240\x2e245\x3a8080
-SETUVAR --export HTTP_PROXY:http\x3a//192\x2e168\x2e240\x2e245\x3a8080
+SETUVAR --export HTTPS_PROXY:
+SETUVAR --export HTTP_PROXY:
 SETUVAR --export NO_PROXY:localhost\x2c127\x2e0\x2e0\x2e1\x2c\x3a\x3a1
 SETUVAR --export SUDO_EDITOR:nvim
 SETUVAR __fish_initialized:3400
