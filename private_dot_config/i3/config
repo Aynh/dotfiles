@@ -50,10 +50,10 @@ bindsym XF86AudioLowerVolume exec pamixer -ud 5 && pamixer --get-volume > $XOBSO
 bindsym XF86AudioMute exec pamixer --toggle-mute && ( test $(pamixer --get-mute) = true && echo 0 > $XOBSOCK ) || pamixer --get-volume > $XOBSOCK
 
 exec --no-startup-id playerctld daemon
-set $mpris exec --no-startup-id ~/.config/i3/mpris.sh
-bindsym XF86AudioNext $mpris next
-bindsym XF86AudioPrev $mpris previous
-bindsym XF86AudioPlay $mpris toggle_pause
+set $playerctl exec --no-startup-id playerctl
+bindsym XF86AudioNext $playerctl next
+bindsym XF86AudioPrev $playerctl previous
+bindsym XF86AudioPlay $playerctl play-pause
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
