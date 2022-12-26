@@ -70,6 +70,7 @@ gvfs
 gvfs-mtp
 gzip
 hunspell-en_us
+hyphen-en
 i3-gaps
 i3status-rust
 inetutils
@@ -180,8 +181,10 @@ xdg-desktop-portal
 xdg-user-dirs
 xorg-server
 xorg-xev
+xorg-xfontsel
 xorg-xinput
 xorg-xrdb
+xosd
 yt-dlp
 zenity
 zoxide
