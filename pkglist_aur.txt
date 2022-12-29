@@ -12,6 +12,7 @@ librewolf-extension-bitwarden
 librewolf-firefox-shim
 mangohud
 mingw-w64-fpc
+obs-linuxbrowser-bin
 pacman-cleanup-hook
 paru-bin
 protonvpn
