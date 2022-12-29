@@ -13,7 +13,7 @@ librewolf-firefox-shim
 mangohud
 mingw-w64-fpc
 pacman-cleanup-hook
-paru
+paru-bin
 protonvpn
 rofi-greenclip
 timeshift
