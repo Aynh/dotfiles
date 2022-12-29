@@ -99,5 +99,6 @@
   "terminal.integrated.smoothScrolling": true,
   "[c]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
-  }
+  },
+  "diffEditor.ignoreTrimWhitespace": false
 }
