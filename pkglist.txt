@@ -148,6 +148,7 @@ rofi
 rsync
 samba
 sccache
+scrcpy
 scrot
 seahorse
 sed
