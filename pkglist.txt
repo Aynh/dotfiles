@@ -71,7 +71,7 @@ gvfs-mtp
 gzip
 hunspell-en_us
 hyphen-en
-i3-gaps
+i3-wm
 i3status-rust
 inetutils
 ipset
