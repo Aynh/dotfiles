@@ -110,6 +110,7 @@ mpv-mpris
 mupdf
 neofetch
 neovim
+nethack
 network-manager-applet
 networkmanager
 nmap
