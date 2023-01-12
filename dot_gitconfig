@@ -1,3 +1,9 @@
+[alias]
+  c = commit
+  co = checkout
+  p = pull
+  pp = push
+  s = status
 [user]
 	email = 99479536+Aynh@users.noreply.github.com
 	name = Aynh
