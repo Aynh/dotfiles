@@ -3,6 +3,9 @@
   co = checkout
   p = pull
   pp = push
+  r = restore
+  rr = revert
+  rrr = reset
   s = status
   sp = stash pop
   spp = stash push
