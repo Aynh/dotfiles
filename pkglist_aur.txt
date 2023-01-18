@@ -7,6 +7,7 @@ discord-ptb
 discord-ptb-update-skip-git
 dwarfs-bin
 hunspell-id
+jdownloader2
 librewolf-bin
 librewolf-extension-bitwarden
 librewolf-firefox-shim
