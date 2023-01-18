@@ -1,14 +1,14 @@
 [alias]
-  c = commit
-  co = checkout
-  p = pull
-  pp = push
-  r = restore
-  rr = revert
-  rrr = reset
-  s = status
-  sp = stash pop
-  spp = stash push
+	c = commit
+	co = checkout
+	p = pull
+	pp = push
+	r = restore
+	rr = revert
+	rrr = reset
+	s = status
+	sp = stash pop
+	spp = stash push
 [user]
 	email = 99479536+Aynh@users.noreply.github.com
 	name = Aynh
