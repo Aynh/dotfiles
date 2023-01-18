@@ -100,5 +100,9 @@
   "[c]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
   },
-  "diffEditor.ignoreTrimWhitespace": false
+  "diffEditor.ignoreTrimWhitespace": false,
+  "v.vls.enable": true,
+  "[v]": {
+    "editor.defaultFormatter": "vlanguage.vscode-vlang"
+  }
 }
