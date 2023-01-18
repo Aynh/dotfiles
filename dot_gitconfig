@@ -1,6 +1,7 @@
 [alias]
 	c = commit
 	co = checkout
+	d = diff
 	p = pull
 	pp = push
 	r = restore
