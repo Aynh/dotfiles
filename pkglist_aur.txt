@@ -7,10 +7,12 @@ discord-ptb
 discord-ptb-update-skip-git
 dwarfs-bin
 hunspell-id
+intel-hybrid-codec-driver
 jdownloader2
 librewolf-bin
 librewolf-extension-bitwarden
 librewolf-firefox-shim
+libva-intel-driver-hybrid
 mangohud
 mingw-w64-fpc
 obs-linuxbrowser-bin
