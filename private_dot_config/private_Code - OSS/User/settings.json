@@ -104,5 +104,6 @@
   "v.vls.enable": true,
   "[v]": {
     "editor.defaultFormatter": "vlanguage.vscode-vlang"
-  }
+  },
+  "svelte.enable-ts-plugin": true
 }
