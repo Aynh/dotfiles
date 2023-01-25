@@ -22,6 +22,7 @@ cargo-sort
 chezmoi
 clang
 code
+compsize
 debugedit
 deluge
 deluge-gtk
@@ -75,6 +76,7 @@ i3-wm
 i3status-rust
 inetutils
 intel-gpu-tools
+iotop
 ipset
 jq
 kvantum

@@ -18,6 +18,7 @@ mingw-w64-fpc
 obs-linuxbrowser-bin
 pacman-cleanup-hook
 paru-bin
+plymouth-git
 protonvpn
 rofi-greenclip
 timeshift
