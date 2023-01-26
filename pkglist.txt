@@ -97,8 +97,6 @@ libtool
 libva-mesa-driver
 libva-utils
 libxcrypt-compat
-lightdm
-lightdm-gtk-greeter
 linux-firmware
 linux-zen
 lsof
@@ -156,6 +154,7 @@ samba
 sccache
 scrcpy
 scrot
+sddm
 seahorse
 sed
 shotcut

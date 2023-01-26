@@ -1,5 +1,6 @@
 betterlockscreen
 bindtointerface
+boo-sddm-git
 chromium-extension-web-store
 code-features-insiders
 code-marketplace
