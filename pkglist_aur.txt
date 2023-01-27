@@ -16,6 +16,7 @@ librewolf-firefox-shim
 libva-intel-driver-hybrid
 mangohud
 mingw-w64-fpc
+nohang-git
 obs-linuxbrowser-bin
 pacman-cleanup-hook
 paru-bin
