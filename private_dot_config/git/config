@@ -11,8 +11,8 @@
 	sp = stash pop
 	spp = stash push
 [user]
-	email = 99479536+Aynh@users.noreply.github.com
-	name = Aynh
+	email = 99479536+aynh@users.noreply.github.com
+	name = Ahmad Yasser
 [pull]
 	rebase = true
 [init]
