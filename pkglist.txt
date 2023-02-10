@@ -7,6 +7,7 @@ asciiquarium
 atomicparsley
 autoconf
 automake
+b3sum
 base
 bash-completion
 bat
