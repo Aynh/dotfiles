@@ -60,7 +60,7 @@
   "workbench.productIconTheme": "feather-vscode",
   "workbench.colorTheme": "Solarized Dark",
   "editor.smoothScrolling": true,
-  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorSmoothCaretAnimation": "on",
   "files.autoSave": "onFocusChange",
   "editor.renderWhitespace": "none",
   "diffEditor.codeLens": true,
@@ -105,5 +105,11 @@
   "[v]": {
     "editor.defaultFormatter": "vlanguage.vscode-vlang"
   },
-  "svelte.enable-ts-plugin": true
+  "svelte.enable-ts-plugin": true,
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  "[sass]": {
+    "editor.defaultFormatter": "syler.sass-indented"
+  }
 }
