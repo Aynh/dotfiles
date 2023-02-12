@@ -18,7 +18,6 @@
 | Name                                                                              | Difference with builtin               |
 | --------------------------------------------------------------------------------- | ------------------------------------- |
 | [Chromium](./private_dot_local/private_share/applications/chromium.desktop)       | Run chromium with $ALL_PROXY as proxy |
-| [Discord PTB](./private_dot_local/private_share/applications/discord-ptb.desktop) | Same as `Chromium`                    |
 | [Steam (Runtime)](./private_dot_local/private_share/applications/steam.desktop)   | Run steam with `gamemoderun`          |
 
 ## [Fish functions](./private_dot_config/private_fish/functions)
