@@ -12,6 +12,9 @@ intel-hybrid-codec-driver
 jdownloader2
 librewolf-bin
 librewolf-extension-bitwarden
+librewolf-extension-cookie-autodelete
+librewolf-extension-dark-reader
+librewolf-extension-localcdn
 librewolf-firefox-shim
 libva-intel-driver-hybrid
 mingw-w64-fpc
@@ -27,6 +30,7 @@ timeshift
 ungoogled-chromium-bin
 vkd3d-proton-bin
 volantes-cursors-git
+volta-bin
 wine-ge-custom
 xidlehook
 xob
