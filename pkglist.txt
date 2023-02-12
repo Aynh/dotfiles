@@ -152,7 +152,6 @@ rhash
 rofi
 rsync
 samba
-sccache
 scrcpy
 scrot
 sddm
