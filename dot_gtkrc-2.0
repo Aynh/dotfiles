@@ -3,7 +3,7 @@
 
 include "/home/yasser/.gtkrc-2.0.mine"
 gtk-theme-name="Raleigh"
-gtk-icon-theme-name="Pop"
+gtk-icon-theme-name="Win11-nord"
 gtk-font-name="Cantarell 11"
 gtk-cursor-theme-name="xcursor-genshin-nahida"
 gtk-cursor-theme-size=0
