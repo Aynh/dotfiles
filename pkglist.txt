@@ -65,6 +65,7 @@ grep
 groff
 grub
 grub-btrfs
+grub-customizer
 gst-plugins-bad
 gst-plugins-base
 gst-plugins-good
