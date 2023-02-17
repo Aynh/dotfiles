@@ -7,6 +7,7 @@ code-features-insiders
 code-marketplace
 dwarfs-bin
 grub-hook
+holocure-bin
 hunspell-id
 intel-hybrid-codec-driver
 jdownloader2
@@ -31,7 +32,7 @@ plymouth-git
 protonvpn
 rofi-greenclip
 timeshift
-ungoogled-chromium-bin
+ungoogled-chromium-xdg-bin
 vkd3d-proton-bin
 volta-bin
 webcord-bin
