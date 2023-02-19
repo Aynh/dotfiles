@@ -105,7 +105,6 @@ linux-firmware
 linux-zen
 lsof
 lxappearance
-lxqt-archiver
 m4
 make
 man-db
@@ -133,7 +132,7 @@ pamixer
 papirus-icon-theme
 patch
 pavucontrol
-pcmanfm-qt
+pcmanfm-gtk3
 picom
 pipewire-audio
 pipewire-pulse
@@ -184,6 +183,7 @@ vulkan-mesa-layers
 vulkan-tools
 which
 winetricks
+xarchiver
 xclip
 xdelta3
 xdg-desktop-portal
