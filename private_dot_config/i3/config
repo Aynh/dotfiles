@@ -18,8 +18,8 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # dunst notification
 exec --no-startup-id dunst
 
-# pcmanfm-qt
-exec --no-startup-id pcmanfm-qt --daemon-mode
+# pcmanfm
+exec --no-startup-id pcmanfm --daemon-mode
 
 # redshift
 exec --no-startup-id redshift

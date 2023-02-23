@@ -2,7 +2,7 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/yasser/.gtkrc-2.0.mine"
-gtk-theme-name="Raleigh"
+gtk-theme-name="windows11-GTKtheme"
 gtk-icon-theme-name="ePapirus"
 gtk-font-name="Cantarell 11"
 gtk-cursor-theme-name="xcursor-genshin-nahida"
