@@ -7,10 +7,8 @@ smart_borders on
 font pango:Fira Code 10
 
 # wallpaper and lockscreen
-set $update_wallpaper_lockscreen \
-  betterlockscreen --wall && betterlockscreen --update ~/.wallpaper &
-exec --no-startup-id $update_wallpaper_lockscreen
-bindsym $mod+slash exec --no-startup-id $update_wallpaper_lockscreen
+exec --no-startup-id ~/.local/bin/update-wallpaper &
+bindsym $mod+slash exec --no-startup-id ~/.local/bin/update-wallpaper
 
 # polkit agent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1

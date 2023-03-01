@@ -1,0 +1,8 @@
+#!/bin/fish
+
+set --local hour (date +%H)
+if [ 6 -le $hour -a $hour -le 18 ]
+  set wallpaper_effect dim
+end
+
+betterlockscreen --quiet --update ~/.wallpaper --wall $wallpaper_effect
