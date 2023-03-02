@@ -1,5 +1,3 @@
-# --format "ba"
-# --output "[%(upload_date)s] %(title)s (%(id)s).opus"
 --merge-output-format mkv
 --output "[%(upload_date)s] %(title)s (%(id)s).%(ext)s"
 
@@ -10,7 +8,10 @@
 --embed-chapters
 --embed-thumbnail
 --embed-metadata
-# --downloader aria2c
+
+--force-ipv4
+--downloader aria2c
+--downloader-args 'aria2c:--split=48 --max-connection-per-server=48 --min-split-size=1M'
 
 --playlist-random
 # --lazy-playlist
