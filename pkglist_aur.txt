@@ -1,3 +1,4 @@
+aria2-fast
 betterlockscreen
 bindtointerface
 boo-sddm-git
