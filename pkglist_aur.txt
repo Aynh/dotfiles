@@ -38,6 +38,5 @@ volta-bin
 webcord-bin
 win11-gtk-theme-git
 xcursor-genshin-nahida
-xcursor-mizuki
 xidlehook
 xob
