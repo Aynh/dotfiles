@@ -8,7 +8,6 @@ code-features-insiders
 code-marketplace
 dwarfs-bin
 grub-hook
-holocure-bin
 hunspell-id
 intel-hybrid-codec-driver
 jdownloader2
@@ -38,7 +37,6 @@ vkd3d-proton-bin
 volta-bin
 webcord-bin
 win11-gtk-theme-git
-wine-ge-custom
 xcursor-genshin-nahida
 xcursor-mizuki
 xidlehook
