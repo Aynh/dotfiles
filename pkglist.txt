@@ -58,6 +58,7 @@ gettext
 git
 github-cli
 gnome-disk-utility
+gpick
 graphicsmagick
 grep
 groff
