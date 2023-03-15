@@ -84,6 +84,7 @@ iotop
 ipset
 jq
 kitty
+lazarus-qt5
 ldns
 lib32-gamemode
 lib32-gst-plugins-base
@@ -195,6 +196,7 @@ xorg-xev
 xorg-xfontsel
 xorg-xinput
 xorg-xrdb
+xorg-xwininfo
 xosd
 yt-dlp
 zenity
