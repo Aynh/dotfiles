@@ -1,3 +1,6 @@
+android-platform
+android-sdk-build-tools
+android-sdk-cmdline-tools-latest
 aria2-fast
 betterlockscreen
 bindtointerface
@@ -7,6 +10,7 @@ chromium-extension-web-store
 code-features-insiders
 code-marketplace
 dwarfs-bin
+flutter
 grub-hook
 hunspell-id
 intel-hybrid-codec-driver

@@ -21,6 +21,7 @@ cargo-bloat
 cargo-sort
 chezmoi
 clang
+cmake
 code
 codespell
 compsize
@@ -82,6 +83,7 @@ inetutils
 intel-gpu-tools
 iotop
 ipset
+jdk-openjdk
 jq
 kitty
 lazarus-qt5
@@ -121,6 +123,7 @@ neovim
 nethack
 network-manager-applet
 networkmanager
+ninja
 nmap
 noto-fonts
 noto-fonts-cjk
