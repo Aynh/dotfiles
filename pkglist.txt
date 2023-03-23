@@ -189,6 +189,7 @@ vnstat
 vulkan-mesa-layers
 vulkan-tools
 which
+wine-staging
 xarchiver
 xclip
 xdelta3
