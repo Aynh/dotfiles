@@ -159,6 +159,7 @@ reflector
 rhash
 rofi
 rsync
+rust
 rxvt-unicode
 samba
 scrcpy
