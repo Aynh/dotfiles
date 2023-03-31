@@ -6,6 +6,11 @@ smart_borders on
 
 font pango:Fira Code 10
 
+# Lazarus
+for_window [class="Lazarus"] floating enable
+# pop-ups
+for_window [window_role="pop-up"] floating enable
+
 # wallpaper and lockscreen
 exec --no-startup-id ~/.local/bin/update-wallpaper &
 bindsym $mod+slash exec --no-startup-id ~/.local/bin/update-wallpaper

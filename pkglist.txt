@@ -16,6 +16,7 @@ binutils
 broot
 btop
 btrfs-progs
+cabal-install
 cargo-binstall
 cargo-bloat
 cargo-sort
@@ -56,6 +57,7 @@ gawk
 gcc
 gendesk
 gettext
+ghc
 git
 github-cli
 gnome-disk-utility
@@ -93,7 +95,6 @@ lib32-gst-plugins-base
 lib32-gst-plugins-good
 lib32-libva-intel-driver
 lib32-libva-mesa-driver
-lib32-mesa-amber
 lib32-pipewire
 lib32-vkd3d
 lib32-vulkan-icd-loader
@@ -112,7 +113,6 @@ lxappearance
 m4
 make
 man-db
-mesa-amber
 mesa-utils
 mingw-w64-gcc
 mpv
@@ -160,6 +160,7 @@ rhash
 rofi
 rsync
 rust
+rust-analyzer
 rxvt-unicode
 samba
 scrcpy
@@ -190,7 +191,6 @@ vnstat
 vulkan-mesa-layers
 vulkan-tools
 which
-wine-staging
 winetricks
 xarchiver
 xclip

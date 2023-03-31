@@ -111,5 +111,6 @@
   },
   "[sass]": {
     "editor.defaultFormatter": "syler.sass-indented"
-  }
+  },
+  "dart.openDevTools": "flutter"
 }

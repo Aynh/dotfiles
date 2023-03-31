@@ -41,6 +41,7 @@ vkd3d-proton-bin
 volta-bin
 webcord-bin
 win11-gtk-theme-git
+wine-ge-custom
 xcursor-genshin-nahida
 xidlehook
 xob
