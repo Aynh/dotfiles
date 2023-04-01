@@ -25,7 +25,6 @@ clang
 cmake
 code
 codespell
-compsize
 cpulimit
 deluge
 deluge-gtk
@@ -84,7 +83,6 @@ i3status-rust
 inetutils
 intel-gpu-tools
 iotop
-ipset
 jdk-openjdk
 jq
 kitty
@@ -194,7 +192,6 @@ which
 winetricks
 xarchiver
 xclip
-xdelta3
 xdg-desktop-portal
 xdg-user-dirs
 xorg-server
