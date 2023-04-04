@@ -25,7 +25,6 @@ clang
 cmake
 code
 codespell
-cpulimit
 deluge
 deluge-gtk
 dnscrypt-proxy
@@ -76,6 +75,7 @@ gstreamer-vaapi
 gvfs
 gvfs-mtp
 gzip
+haskell-language-server
 hunspell-en_us
 hyphen-en
 i3-wm
@@ -161,6 +161,7 @@ rust
 rust-analyzer
 rxvt-unicode
 samba
+sccache
 scrcpy
 scrot
 sddm

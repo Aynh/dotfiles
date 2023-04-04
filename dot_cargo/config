@@ -5,7 +5,7 @@ protocol = "sparse"
 rustflags = ["-C", "target-cpu=native"]
 
 [build]
-# rustc-wrapper = "sccache"
+rustc-wrapper = "sccache"
 
 [profile.release]
 strip = true  # Automatically strip symbols from the binary.

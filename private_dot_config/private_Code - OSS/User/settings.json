@@ -112,5 +112,9 @@
   "[sass]": {
     "editor.defaultFormatter": "syler.sass-indented"
   },
-  "dart.openDevTools": "flutter"
+  "dart.openDevTools": "flutter",
+  "haskell.manageHLS": "PATH",
+  "[haskell]": {
+    "editor.defaultFormatter": "haskell.haskell"
+  }
 }
