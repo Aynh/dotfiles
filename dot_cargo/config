@@ -6,6 +6,7 @@ rustflags = ["-C", "target-cpu=native"]
 
 [build]
 rustc-wrapper = "sccache"
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 
 [profile.release]
 strip = true  # Automatically strip symbols from the binary.

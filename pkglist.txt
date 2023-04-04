@@ -113,6 +113,7 @@ make
 man-db
 mesa-utils
 mingw-w64-gcc
+mold
 mpv
 mpv-mpris
 mupdf
