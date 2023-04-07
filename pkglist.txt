@@ -158,8 +158,8 @@ reflector
 rhash
 rofi
 rsync
-rust
 rust-analyzer
+rustup
 rxvt-unicode
 samba
 sccache

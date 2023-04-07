@@ -1,6 +1,3 @@
-android-platform
-android-sdk-build-tools
-android-sdk-cmdline-tools-latest
 aria2-fast
 betterlockscreen
 bindtointerface
@@ -10,7 +7,6 @@ code-features-insiders
 code-marketplace
 cpulimit
 dwarfs-bin
-flutter
 grub-hook
 intel-hybrid-codec-driver
 kmscon-patched-git
