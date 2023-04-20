@@ -12,6 +12,7 @@ base
 base-devel
 bash-completion
 bat
+beep
 binutils
 broot
 btop

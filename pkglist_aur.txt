@@ -32,6 +32,7 @@ ungoogled-chromium-xdg-bin
 vkd3d-proton-bin
 volta-bin
 webcord-bin
+whatsie
 win11-gtk-theme-git
 wine-ge-custom
 xcursor-genshin-nahida
