@@ -19,8 +19,6 @@ btop
 btrfs-progs
 cabal-install
 cargo-binstall
-cargo-bloat
-cargo-sort
 chezmoi
 clang
 cmake
