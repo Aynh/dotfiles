@@ -82,7 +82,6 @@ i3status-rust
 inetutils
 intel-gpu-tools
 iotop
-jdk-openjdk
 jq
 kitty
 lazarus-qt5
@@ -105,6 +104,7 @@ libva-utils
 libxcrypt-compat
 linux-firmware
 linux-zen
+linux-zen-headers
 lsof
 lxappearance
 m4
@@ -157,7 +157,6 @@ reflector
 rhash
 rofi
 rsync
-rust-analyzer
 rustup
 rxvt-unicode
 samba
@@ -185,6 +184,8 @@ ttf-nerd-fonts-symbols-2048-em-mono
 upower
 upx
 vim
+virtualbox
+virtualbox-host-dkms
 vkd3d
 vnstat
 vulkan-mesa-layers
