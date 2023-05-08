@@ -35,7 +35,7 @@ require "lualine".setup {
 EOF
 
 " Indent with space
-" set expandtab
+set expandtab
 
 " Set tab width
 set tabstop=2
