@@ -7,6 +7,7 @@ code-features-insiders
 code-marketplace
 cpulimit
 dwarfs-bin
+ffcast
 grub-hook
 intel-hybrid-codec-driver
 kmscon-patched-git
@@ -28,6 +29,8 @@ plymouth-git
 protonvpn
 rofi-greenclip
 timeshift
+ttf-nerd-fonts-symbols-2048-em
+ttf-nerd-fonts-symbols-2048-em-mono
 ungoogled-chromium-xdg-bin
 vkd3d-proton-bin
 volta-bin

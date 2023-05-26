@@ -179,8 +179,6 @@ texinfo
 ttf-fira-code
 ttf-fira-sans
 ttf-font-awesome
-ttf-nerd-fonts-symbols-2048-em
-ttf-nerd-fonts-symbols-2048-em-mono
 upower
 upx
 vim
