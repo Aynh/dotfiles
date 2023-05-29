@@ -29,8 +29,6 @@ plymouth-git
 protonvpn
 rofi-greenclip
 timeshift
-ttf-nerd-fonts-symbols-2048-em
-ttf-nerd-fonts-symbols-2048-em-mono
 ungoogled-chromium-xdg-bin
 vkd3d-proton-bin
 volta-bin
