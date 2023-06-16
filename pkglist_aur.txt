@@ -27,6 +27,7 @@ pacman-cleanup-hook
 paru-bin
 plymouth-git
 protonvpn
+python-pyautogui
 rofi-greenclip
 timeshift
 ungoogled-chromium-xdg-bin
