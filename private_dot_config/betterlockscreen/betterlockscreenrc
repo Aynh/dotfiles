@@ -1,0 +1,6 @@
+# ~/.config/betterlockscreenrc
+
+fx_list=(dimblur dim)
+dim_level=50
+blur_level=1
+wallpaper_cmd="feh --bg-fill"

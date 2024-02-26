@@ -1,0 +1,110 @@
+#!/bin/env python
+
+import asyncio
+import os
+import sys
+
+WALLPAPER_DIR = os.path.expanduser("~/.wallpaper")
+
+
+async def update_wallpaper():
+    import itertools
+    import urllib.parse
+
+    import httpx
+    from tqdm.asyncio import tqdm
+
+    client = httpx.AsyncClient()
+    client.headers.update({"user-agent": f"{os.path.basename(__file__)} - yet-another"})
+
+    semaphore = asyncio.Semaphore(4)
+
+    ZEROCHAN_FEED_URL_TMPL = (
+        "https://www.zerochan.net/{}?s=fav&t=2&d=landscape&json&l=5"
+    )
+
+    async def get_zerochan_feed(tag):
+        async with semaphore:
+            feed_url = ZEROCHAN_FEED_URL_TMPL.format(tag)
+            feed_response = (await client.get(feed_url)).json()
+            return feed_response["items"] or []
+
+    tags = ["Arknights", "Azur+Lane", "Blue+Archive", "Honkai+Star+Rail", "Yuri"]
+    feed_items = itertools.chain.from_iterable(
+        await tqdm.gather(
+            *[get_zerochan_feed(tag) for tag in tags], desc="fetching image feeds"
+        )
+    )
+
+    ID_BLACKLIST = [
+        4117755,  # can't parse the json because it somehow has '/' character on one of the tags
+    ]
+
+    async def get_full_image_url(image_id):
+        if image_id in ID_BLACKLIST:
+            return
+
+        async with semaphore:
+            response = (
+                await client.get(f"https://www.zerochan.net/{image_id}?json")
+            ).json()
+            if response["primary"] != "Cross-Over":  # dunwan
+                return response["full"]
+
+    image_urls = await tqdm.gather(
+        *[get_full_image_url(item["id"]) for item in feed_items],
+        desc="fetching images data",
+    )
+    image_urls = list(filter(lambda it: it is not None, image_urls))
+
+    async def download_image(main_pb, url):
+        filename = (
+            urllib.parse.unquote(url.split("/")[-1]).replace("(", "").replace(")", "")
+        )
+        image_path = os.path.join(WALLPAPER_DIR, filename)
+
+        if not os.path.exists(image_path):
+            async with semaphore:
+                async with client.stream("GET", url) as response:
+                    with tqdm(
+                        desc=filename,
+                        leave=False,
+                        total=int(response.headers["content-length"]),
+                        unit_scale=True,
+                    ) as pb, open(image_path, "wb") as image_file:
+                        async for data in response.aiter_bytes():
+                            image_file.write(data)
+                            pb.update(len(data))
+
+        main_pb.update()
+
+    with tqdm(total=len(image_urls), desc="downloading images") as main_pb:
+        await asyncio.gather(
+            *[download_image(main_pb, url) for url in image_urls],
+        )
+
+
+def apply_wallpaper():
+    import shutil
+    import subprocess
+    from datetime import datetime
+
+    if betterlockscreen := shutil.which("betterlockscreen"):
+        if len(os.listdir(WALLPAPER_DIR)) == 0:
+            return
+
+        args = ["--quiet", "--update", WALLPAPER_DIR, "--wall"]
+        now = datetime.now()
+        if now.hour <= 6 or now.hour >= 18:
+            args += ["dim"]
+
+        process = subprocess.Popen(args, executable=betterlockscreen)
+        process.wait()
+
+
+match sys.argv[1]:
+    case "apply":
+        apply_wallpaper()
+
+    case "update":
+        asyncio.run(update_wallpaper())
