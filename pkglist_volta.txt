@@ -1,4 +1,0 @@
-node@18.14.0
-pnpm
-wrangler
-yarn@1
