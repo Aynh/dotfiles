@@ -32,7 +32,6 @@
   "workbench.tree.renderIndentGuides": "always",
   "terminal.integrated.defaultProfile.linux": "fish",
   "update.mode": "none",
-  "python.languageServer": "Pylance",
   "python.defaultInterpreterPath": "/bin/python",
   "telemetry.telemetryLevel": "off",
   "editor.mouseWheelZoom": true,
@@ -47,7 +46,7 @@
   "editor.unicodeHighlight.nonBasicASCII": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[python]": {
-    "editor.defaultFormatter": "ms-python.python"
+    "editor.defaultFormatter": "ms-python.black-formatter"
   },
   "editor.tabSize": 2,
   "[toml]": {
@@ -58,7 +57,7 @@
   },
   "workbench.iconTheme": "material-icon-theme",
   "workbench.productIconTheme": "feather-vscode",
-  "workbench.colorTheme": "Solarized Dark",
+  "workbench.colorTheme": "Solarized Light",
   "editor.smoothScrolling": true,
   "editor.cursorSmoothCaretAnimation": "on",
   "files.autoSave": "onFocusChange",
@@ -85,7 +84,7 @@
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.suggestSelection": "first",
     "editor.tabCompletion": "onlySnippets",
-    "editor.wordBasedSuggestions": false
+    "editor.wordBasedSuggestions": "off"
   },
   "markdown.extension.toc.levels": "2..6",
   "markdown.extension.tableFormatter.enabled": false,
@@ -116,5 +115,15 @@
   "haskell.manageHLS": "PATH",
   "[haskell]": {
     "editor.defaultFormatter": "haskell.haskell"
-  }
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "workbench.editor.editorActionsLocation": "hidden",
+  "editor.minimap.enabled": false,
+  "breadcrumbs.enabled": false,
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+  "python.analysis.autoFormatStrings": true,
+  "mypy.dmypyExecutable": "${workspaceFolder}/bin/dmypy"
 }

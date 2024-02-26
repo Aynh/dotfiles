@@ -6,14 +6,16 @@ smart_borders on
 
 font pango:Fira Code 10
 
+for_window [class="explorer.exe"] border pixel 1
+
 # Lazarus
 for_window [class="Lazarus"] floating enable
 # pop-ups
 for_window [window_role="pop-up"] floating enable
 
 # wallpaper and lockscreen
-exec --no-startup-id ~/.local/bin/update-wallpaper &
-bindsym $mod+slash exec --no-startup-id ~/.local/bin/update-wallpaper
+exec --no-startup-id ~/.local/bin/wallpaper apply &
+bindsym $mod+slash exec --no-startup-id ~/.local/bin/wallpaper apply
 
 # polkit agent
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -46,7 +48,7 @@ exec --no-startup-id xidlehook --detect-sleep \
 	--timer 600 "$locker" "" \
 
 bindsym Pause exec --no-startup-id $locker
-bindsym Shift+Pause exec --no-startup-id systemctl suspend
+bindsym Shift+Pause exec --no-startup-id $locker --suspend
 bindsym Control+Shift+Pause exec --no-startup-id systemctl poweroff
 
 set $XOBSOCK $XDG_RUNTIME_DIR/xob.sock
