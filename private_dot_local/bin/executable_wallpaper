@@ -89,17 +89,31 @@ def apply_wallpaper():
     import subprocess
     from datetime import datetime
 
-    if betterlockscreen := shutil.which("betterlockscreen"):
-        if len(os.listdir(WALLPAPER_DIR)) == 0:
-            return
+    betterlockscreen = shutil.which("betterlockscreen")
+    filename_part = __name__.split("/")
+    lockfile_path = os.path.join(
+        "/".join(filename_part[:-1]), f"{filename_part[-1]}.lock"
+    )
 
-        args = ["--quiet", "--update", WALLPAPER_DIR, "--wall"]
-        now = datetime.now()
-        if now.hour <= 6 or now.hour >= 18:
-            args += ["dim"]
+    if (
+        len(os.listdir(WALLPAPER_DIR)) == 0
+        or betterlockscreen is None
+        or os.path.exists(lockfile_path)
+    ):
+        return
 
-        process = subprocess.Popen(args, executable=betterlockscreen)
-        process.wait()
+    open(lockfile_path, "x").close()
+
+    cmds = ['nice', '-n', '19']
+    cmds += [betterlockscreen,"--quiet", "--update", WALLPAPER_DIR, "--wall"]
+
+    now = datetime.now()
+    if now.hour <= 6 or now.hour >= 18:
+        cmds += ["dim"]
+
+    subprocess.Popen(cmds).wait()
+
+    os.remove(lockfile_path)
 
 
 match sys.argv[1]:
