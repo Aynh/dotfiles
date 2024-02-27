@@ -1,8 +1,9 @@
 [Unit]
-Description=Run wallpaper update every hour
+Description=Run wallpaper update every (hour % 6) == 0
 
 [Timer]
-OnUnitActiveSec=1h
+OnCalendar=00/6:00:00
+Persistent=True
 
 [Install]
 WantedBy=timers.target
