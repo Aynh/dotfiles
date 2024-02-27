@@ -6,6 +6,7 @@ SETUVAR --export EDITOR:nvim
 SETUVAR --export GLFW_IM_MODULE:ibus
 SETUVAR --export NO_PROXY:localhost\x2c127\x2e0\x2e0\x2e1\x2c\x3a\x3a1
 SETUVAR --export SUDO_EDITOR:nvim
+SETUVAR --export TERMINAL:/usr/bin/kitty
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
