@@ -1,0 +1,5 @@
+[Unit]
+Description=Run wallpaper apply
+
+[Service]
+ExecStart=%h/.local/bin/wallpaper apply
