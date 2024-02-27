@@ -19,20 +19,35 @@ async def update_wallpaper():
 
     semaphore = asyncio.Semaphore(4)
 
+    def with_semaphore(fn):
+        async def wrapper(*args):
+            async with semaphore:
+                return await fn(*args)
+
+        return wrapper
+
     ZEROCHAN_FEED_URL_TMPL = (
         "https://www.zerochan.net/{}?s=fav&t=2&d=landscape&json&l=5"
     )
 
+    @with_semaphore
     async def get_zerochan_feed(tag):
-        async with semaphore:
-            feed_url = ZEROCHAN_FEED_URL_TMPL.format(tag)
-            feed_response = (await client.get(feed_url)).json()
-            return feed_response["items"] or []
+        feed_url = ZEROCHAN_FEED_URL_TMPL.format(tag)
+        feed_response = (await client.get(feed_url)).json()
+        return feed_response["items"] or []
 
-    tags = ["Arknights", "Azur+Lane", "Blue+Archive", "Honkai+Star+Rail", "Yuri"]
+    ZEROCHAN_TAGS = (
+        "Arknights",
+        "Azur+Lane",
+        "Blue+Archive",
+        "Honkai+Star+Rail",
+        "Yuri",
+    )
     feed_items = itertools.chain.from_iterable(
         await tqdm.gather(
-            *[get_zerochan_feed(tag) for tag in tags], desc="fetching image feeds"
+            *[get_zerochan_feed(tag) for tag in ZEROCHAN_TAGS],
+            desc="fetching image feeds",
+            disable=None,
         )
     )
 
@@ -40,23 +55,25 @@ async def update_wallpaper():
         4117755,  # can't parse the json because it somehow has '/' character on one of the tags
     ]
 
+    @with_semaphore
     async def get_full_image_url(image_id):
         if image_id in ID_BLACKLIST:
             return
 
-        async with semaphore:
-            response = (
-                await client.get(f"https://www.zerochan.net/{image_id}?json")
-            ).json()
-            if response["primary"] != "Cross-Over":  # dunwan
-                return response["full"]
+        response = (
+            await client.get(f"https://www.zerochan.net/{image_id}?json")
+        ).json()
+        if response["primary"] != "Cross-Over":  # dunwan
+            return response["full"]
 
     image_urls = await tqdm.gather(
         *[get_full_image_url(item["id"]) for item in feed_items],
         desc="fetching images data",
+        disable=None,
     )
     image_urls = list(filter(lambda it: it is not None, image_urls))
 
+    @with_semaphore
     async def download_image(main_pb, url):
         filename = (
             urllib.parse.unquote(url.split("/")[-1]).replace("(", "").replace(")", "")
@@ -64,21 +81,23 @@ async def update_wallpaper():
         image_path = os.path.join(WALLPAPER_DIR, filename)
 
         if not os.path.exists(image_path):
-            async with semaphore:
-                async with client.stream("GET", url) as response:
-                    with tqdm(
-                        desc=filename,
-                        leave=False,
-                        total=int(response.headers["content-length"]),
-                        unit_scale=True,
-                    ) as pb, open(image_path, "wb") as image_file:
-                        async for data in response.aiter_bytes():
-                            image_file.write(data)
-                            pb.update(len(data))
+            async with client.stream("GET", url) as response:
+                with tqdm(
+                    desc=filename,
+                    disable=None,
+                    leave=False,
+                    total=int(response.headers["content-length"]),
+                    unit_scale=True,
+                ) as pb, open(image_path, "wb") as image_file:
+                    async for data in response.aiter_bytes():
+                        image_file.write(data)
+                        pb.update(len(data))
 
         main_pb.update()
 
-    with tqdm(total=len(image_urls), desc="downloading images") as main_pb:
+    with tqdm(
+        total=len(image_urls), desc="downloading images", disable=None
+    ) as main_pb:
         await asyncio.gather(
             *[download_image(main_pb, url) for url in image_urls],
         )
@@ -104,8 +123,8 @@ def apply_wallpaper():
 
     open(lockfile_path, "x").close()
 
-    cmds = ['nice', '-n', '19']
-    cmds += [betterlockscreen,"--quiet", "--update", WALLPAPER_DIR, "--wall"]
+    cmds = ["nice", "-n", "19"]
+    cmds += [betterlockscreen, "--quiet", "--update", WALLPAPER_DIR, "--wall"]
 
     now = datetime.now()
     if now.hour <= 6 or now.hour >= 18:
