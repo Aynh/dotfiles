@@ -2,6 +2,7 @@
 Description=Run wallpaper apply every 5 minutes
 
 [Timer]
+OnStartupSec=5min
 OnUnitActiveSec=5min
 
 [Install]

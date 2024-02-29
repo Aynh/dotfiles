@@ -109,7 +109,7 @@ def apply_wallpaper():
     from datetime import datetime
 
     betterlockscreen = shutil.which("betterlockscreen")
-    filename_part = __name__.split("/")
+    filename_part = __file__.split("/")
     lockfile_path = os.path.join(
         "/".join(filename_part[:-1]), f"{filename_part[-1]}.lock"
     )
