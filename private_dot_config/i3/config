@@ -69,10 +69,6 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec --no-startup-id kitty --single-instance || urxvt
 
-set $abduco abduco -A - $SHELL
-# start a terminal (and start tmux)
-bindsym $mod+Shift+Return exec --no-startup-id kitty --single-instance -e $abduco || urxvt -e $abduco
-
 # kill focused window
 bindsym $mod+Shift+q kill
 

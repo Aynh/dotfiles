@@ -3,6 +3,7 @@
 SETUVAR --export ALL_PROXY:
 SETUVAR --export BROWSER:/usr/bin/librewolf
 SETUVAR --export EDITOR:nvim
+SETUVAR --export FREETYPE_PROPERTIES:truetype\x3ainterpreter\x2dversion\x3d35
 SETUVAR --export GLFW_IM_MODULE:ibus
 SETUVAR --export NO_PROXY:localhost\x2c127\x2e0\x2e0\x2e1\x2c\x3a\x3a1
 SETUVAR --export SUDO_EDITOR:nvim

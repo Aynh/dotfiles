@@ -1,6 +1,5 @@
 #!/bin/env python
 
-import asyncio
 import os
 import sys
 
@@ -8,6 +7,7 @@ WALLPAPER_DIR = os.path.expanduser("~/.wallpaper")
 
 
 async def update_wallpaper():
+    import asyncio
     import itertools
     import urllib.parse
 
@@ -16,6 +16,7 @@ async def update_wallpaper():
 
     client = httpx.AsyncClient()
     client.headers.update({"user-agent": f"{os.path.basename(__file__)} - yet-another"})
+    client.follow_redirects = True
 
     semaphore = asyncio.Semaphore(4)
 
@@ -32,20 +33,24 @@ async def update_wallpaper():
 
     @with_semaphore
     async def get_zerochan_feed(tag):
-        feed_url = ZEROCHAN_FEED_URL_TMPL.format(tag)
+        feed_url = ZEROCHAN_FEED_URL_TMPL.format(tag.replace(" ", "+"))
         feed_response = (await client.get(feed_url)).json()
         return feed_response["items"] or []
 
-    ZEROCHAN_TAGS = (
+    ZEROCHAN_SFW_TAGS = (
         "Arknights",
-        "Azur+Lane",
-        "Blue+Archive",
-        "Honkai+Star+Rail",
-        "Yuri",
+        "Azur Lane",
+        "Blue Archive",
+        "Honkai Star Rail",
     )
+    ZEROCHAN_NSFW_TAGS = ("Yuri",)
+
     feed_items = itertools.chain.from_iterable(
         await tqdm.gather(
-            *[get_zerochan_feed(tag) for tag in ZEROCHAN_TAGS],
+            *[
+                get_zerochan_feed(tag)
+                for tag in (*ZEROCHAN_SFW_TAGS, *ZEROCHAN_NSFW_TAGS)
+            ],
             desc="fetching image feeds",
             disable=None,
         )
@@ -54,6 +59,7 @@ async def update_wallpaper():
     ID_BLACKLIST = [
         4117755,  # can't parse the json because it somehow has '/' character on one of the tags
     ]
+    TAG_BLACKLIST = ["Cross-Over"]
 
     @with_semaphore
     async def get_full_image_url(image_id):
@@ -63,8 +69,13 @@ async def update_wallpaper():
         response = (
             await client.get(f"https://www.zerochan.net/{image_id}?json")
         ).json()
-        if response["primary"] != "Cross-Over":  # dunwan
-            return response["full"]
+
+        if any(tag in response["tags"] for tag in TAG_BLACKLIST) or (
+            response["primary"] in TAG_BLACKLIST
+        ):
+            return
+
+        return response
 
     image_urls = await tqdm.gather(
         *[get_full_image_url(item["id"]) for item in feed_items],
@@ -74,12 +85,20 @@ async def update_wallpaper():
     image_urls = list(filter(lambda it: it is not None, image_urls))
 
     @with_semaphore
-    async def download_image(main_pb, url):
+    async def download_image(main_pb, item):
+        is_nsfw = (
+            any(tag in item["tags"] for tag in ZEROCHAN_NSFW_TAGS)
+            or item["primary"] in ZEROCHAN_NSFW_TAGS
+        )
+
+        url = item["full"]
         filename = (
             urllib.parse.unquote(url.split("/")[-1]).replace("(", "").replace(")", "")
         )
-        image_path = os.path.join(WALLPAPER_DIR, filename)
 
+        image_path = os.path.join(WALLPAPER_DIR, "NSFW" if is_nsfw else "SFW", filename)
+
+        os.makedirs(os.path.dirname(image_path), exist_ok=True)
         if not os.path.exists(image_path):
             async with client.stream("GET", url) as response:
                 with tqdm(
@@ -99,7 +118,7 @@ async def update_wallpaper():
         total=len(image_urls), desc="downloading images", disable=None
     ) as main_pb:
         await asyncio.gather(
-            *[download_image(main_pb, url) for url in image_urls],
+            *[download_image(main_pb, item) for item in image_urls],
         )
 
 
@@ -123,11 +142,20 @@ def apply_wallpaper():
 
     open(lockfile_path, "x").close()
 
-    cmds = ["nice", "-n", "19"]
-    cmds += [betterlockscreen, "--quiet", "--update", WALLPAPER_DIR, "--wall"]
+    cmds = ["nice", "-n", "19", betterlockscreen, "--quiet", "--update"]
 
     now = datetime.now()
     if now.hour <= 6 or now.hour >= 18:
+        cmds += [WALLPAPER_DIR]
+        dim_wallpaper = True
+    else:
+        cmds += [os.path.join(WALLPAPER_DIR, "SFW")]
+        dim_wallpaper = False
+
+    subprocess.Popen(cmds).wait()
+
+    cmds += ["--wall"]
+    if dim_wallpaper:
         cmds += ["dim"]
 
     subprocess.Popen(cmds).wait()
@@ -140,4 +168,6 @@ match sys.argv[1]:
         apply_wallpaper()
 
     case "update":
+        import asyncio
+
         asyncio.run(update_wallpaper())
