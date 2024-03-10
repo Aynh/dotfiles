@@ -70,8 +70,10 @@ async def update_wallpaper():
             await client.get(f"https://www.zerochan.net/{image_id}?json")
         ).json()
 
-        if any(tag in response["tags"] for tag in TAG_BLACKLIST) or (
-            response["primary"] in TAG_BLACKLIST
+        if (
+            any(tag in response["tags"] for tag in TAG_BLACKLIST)
+            or response["primary"] in TAG_BLACKLIST
+            or response["full"].endswith(".gif")
         ):
             return
 
