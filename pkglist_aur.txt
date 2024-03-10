@@ -14,7 +14,7 @@ librewolf-extension-dark-reader-bin
 librewolf-extension-localcdn-bin
 libva-intel-driver-hybrid
 mpv-thumbfast-git
-mpv-uosc-git
+mpv-uosc
 nohang-git
 packettracer
 pacman-cleanup-hook
@@ -22,6 +22,10 @@ paru-bin
 rofi-greenclip
 steamcmd
 ttf-comic-mono-git
+ttf-ms-win10-japanese
+ttf-ms-win10-korean
+ttf-ms-win10-zh_cn
+ttf-ms-win10-zh_tw
 vkd3d-proton-bin
 volta-bin
 wine-ge-custom
