@@ -13,7 +13,6 @@
   "search.useGlobalIgnoreFiles": true,
   "extensions.webWorker": true,
   "terminal.integrated.cursorBlinking": true,
-  "terminal.integrated.enableBell": true,
   "terminal.integrated.rightClickBehavior": "default",
   "update.enableWindowsBackgroundUpdates": false,
   "editor.fontFamily": "Fira Code",
@@ -125,5 +124,9 @@
   "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.inlayHints.variableTypes": true,
   "python.analysis.autoFormatStrings": true,
-  "mypy.dmypyExecutable": "${workspaceFolder}/bin/dmypy"
+  "mypy.dmypyExecutable": "${workspaceFolder}/bin/dmypy",
+  "accessibility.signals.terminalBell": {
+    "sound": "on"
+  },
+  "terminal.integrated.enableVisualBell": true
 }

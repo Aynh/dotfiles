@@ -5,18 +5,45 @@ import sys
 
 WALLPAPER_DIR = os.path.expanduser("~/.wallpaper")
 
+ZEROCHAN_FEED_URL_TMPL = "https://www.zerochan.net/{}?json&s=fav&t=2&d=landscape&l=8"
+ZEROCHAN_SFW_TAGS = (
+    "Arknights",
+    "Honkai Star Rail",
+    "Reverse: 1999",
+    "Genshin Impact",
+    "Girls Frontline",
+    "Touhou",
+)
+ZEROCHAN_NSFW_TAGS = (
+    "Yuri",
+    "Azur Lane",
+    "Blue Archive",
+)
+
 
 async def update_wallpaper():
     import asyncio
     import itertools
+    import json
     import urllib.parse
 
     import httpx
     from tqdm.asyncio import tqdm
 
-    client = httpx.AsyncClient()
-    client.headers.update({"user-agent": f"{os.path.basename(__file__)} - yet-another"})
-    client.follow_redirects = True
+    request_counter = 0
+    async def wait_for_every_60th_requests(_request):
+        nonlocal request_counter
+        request_counter += 1
+        await asyncio.sleep((request_counter // 60) * 60)
+
+    async def raise_on_4xx_5xx(response):
+        response.raise_for_status()
+
+    client = httpx.AsyncClient(
+        headers={"user-agent": f"{os.path.basename(__file__)} - yet-another"},
+        follow_redirects=True,
+        event_hooks={"request": [wait_for_every_60th_requests],"response": [raise_on_4xx_5xx]},
+    )
 
     semaphore = asyncio.Semaphore(4)
 
@@ -27,23 +54,15 @@ async def update_wallpaper():
 
         return wrapper
 
-    ZEROCHAN_FEED_URL_TMPL = (
-        "https://www.zerochan.net/{}?s=fav&t=2&d=landscape&json&l=5"
-    )
-
     @with_semaphore
     async def get_zerochan_feed(tag):
-        feed_url = ZEROCHAN_FEED_URL_TMPL.format(tag.replace(" ", "+"))
-        feed_response = (await client.get(feed_url)).json()
-        return feed_response["items"] or []
+        url = ZEROCHAN_FEED_URL_TMPL.format(tag.replace(" ", "+"))
+        response = (await client.get(url)).json()
 
-    ZEROCHAN_SFW_TAGS = (
-        "Arknights",
-        "Azur Lane",
-        "Blue Archive",
-        "Honkai Star Rail",
-    )
-    ZEROCHAN_NSFW_TAGS = ("Yuri",)
+        try:
+            return response["items"]
+        except KeyError:
+            return []
 
     feed_items = itertools.chain.from_iterable(
         await tqdm.gather(
@@ -53,29 +72,15 @@ async def update_wallpaper():
             ],
             desc="fetching image feeds",
             disable=None,
+            leave=False
         )
     )
 
-    ID_BLACKLIST = [
-        4117755,  # can't parse the json because it somehow has '/' character on one of the tags
-    ]
-    TAG_BLACKLIST = ["Cross-Over"]
-
     @with_semaphore
     async def get_full_image_url(image_id):
-        if image_id in ID_BLACKLIST:
-            return
-
-        response = (
-            await client.get(f"https://www.zerochan.net/{image_id}?json")
-        ).json()
-
-        if (
-            any(tag in response["tags"] for tag in TAG_BLACKLIST)
-            or response["primary"] in TAG_BLACKLIST
-            or response["full"].endswith(".gif")
-        ):
-            return
+        response = await client.get(f"https://www.zerochan.net/{image_id}?json")
+        # workaround for json value that ends with a backslash
+        response = json.loads(response.text.replace('\\"', '"'))
 
         return response
 
@@ -83,45 +88,54 @@ async def update_wallpaper():
         *[get_full_image_url(item["id"]) for item in feed_items],
         desc="fetching images data",
         disable=None,
+        leave=False
     )
-    image_urls = list(filter(lambda it: it is not None, image_urls))
 
     @with_semaphore
-    async def download_image(main_pb, item):
-        is_nsfw = (
-            any(tag in item["tags"] for tag in ZEROCHAN_NSFW_TAGS)
-            or item["primary"] in ZEROCHAN_NSFW_TAGS
-        )
+    async def download_image(item):
+        url: str = item["full"]
 
-        url = item["full"]
+        if url.endswith(".gif"):
+            return  # feh is unable to use gif as wallpaper
+
         filename = (
             urllib.parse.unquote(url.split("/")[-1]).replace("(", "").replace(")", "")
         )
 
-        image_path = os.path.join(WALLPAPER_DIR, "NSFW" if is_nsfw else "SFW", filename)
+        nsfw = (
+            any(tag in item["tags"] for tag in ZEROCHAN_NSFW_TAGS)
+            or item["primary"] in ZEROCHAN_NSFW_TAGS
+        )
+
+        image_path = os.path.join(WALLPAPER_DIR, "NSFW" if nsfw else "SFW", filename)
+
+        if os.path.exists(image_path):
+            return  # don't redownload existing file
 
         os.makedirs(os.path.dirname(image_path), exist_ok=True)
-        if not os.path.exists(image_path):
-            async with client.stream("GET", url) as response:
-                with tqdm(
-                    desc=filename,
-                    disable=None,
-                    leave=False,
-                    total=int(response.headers["content-length"]),
-                    unit_scale=True,
-                ) as pb, open(image_path, "wb") as image_file:
-                    async for data in response.aiter_bytes():
-                        image_file.write(data)
-                        pb.update(len(data))
+        async with client.stream("GET", url) as response:
+            with tqdm(
+                desc=filename,
+                disable=None,
+                leave=False,
+                total=int(response.headers["content-length"]),
+                unit_scale=True,
+            ) as pb:
+                data = []
+                async for chunk in response.aiter_bytes():
+                    data.extend(chunk)
+                    pb.update(len(chunk))
 
-        main_pb.update()
+                with open(image_path, "wb") as image_file:
+                    image_file.write(bytes(data))
+                    pb.write(f"downloaded {filename}")
 
-    with tqdm(
-        total=len(image_urls), desc="downloading images", disable=None
-    ) as main_pb:
-        await asyncio.gather(
-            *[download_image(main_pb, item) for item in image_urls],
-        )
+    await tqdm.gather(
+        *[download_image(item) for item in image_urls],
+        desc="downloading images",
+        disable=None,
+        leave=False
+    )
 
 
 def apply_wallpaper():
@@ -130,19 +144,13 @@ def apply_wallpaper():
     from datetime import datetime
 
     betterlockscreen = shutil.which("betterlockscreen")
-    filename_part = __file__.split("/")
-    lockfile_path = os.path.join(
-        "/".join(filename_part[:-1]), f"{filename_part[-1]}.lock"
-    )
 
-    if (
-        len(os.listdir(WALLPAPER_DIR)) == 0
-        or betterlockscreen is None
-        or os.path.exists(lockfile_path)
-    ):
-        return
-
-    open(lockfile_path, "x").close()
+    if len(os.listdir(WALLPAPER_DIR)) == 0:
+        print("wallpaper directory is empty", file=sys.stderr)
+        exit(1)
+    elif betterlockscreen is None:
+        print("betterlockscreen executable is not found in PATH", file=sys.stderr)
+        exit(1)
 
     cmds = ["nice", "-n", "19", betterlockscreen, "--quiet", "--update"]
 
@@ -154,20 +162,25 @@ def apply_wallpaper():
         cmds += [os.path.join(WALLPAPER_DIR, "SFW")]
         dim_wallpaper = False
 
-    subprocess.Popen(cmds).wait()
-
     cmds += ["--wall"]
     if dim_wallpaper:
         cmds += ["dim"]
 
     subprocess.Popen(cmds).wait()
 
-    os.remove(lockfile_path)
-
 
 match sys.argv[1]:
     case "apply":
-        apply_wallpaper()
+        lockfile = os.path.join(
+            os.path.dirname(__file__), os.path.basename(__file__) + ".apply.lock"
+        )
+
+        if not os.path.exists(lockfile):
+            try:
+                open(lockfile, "x").close()
+                apply_wallpaper()
+            finally:
+                os.remove(lockfile)
 
     case "update":
         import asyncio
