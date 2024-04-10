@@ -1,5 +1,6 @@
 [Unit]
 Description=Run wallpaper update every (hour % 6) == 0
+After=network-online.target nss-lookup.target
 
 [Timer]
 OnCalendar=00/6:00:00

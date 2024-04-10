@@ -128,7 +128,7 @@ async def update_wallpaper():
 
                 with open(image_path, "wb") as image_file:
                     image_file.write(bytes(data))
-                    pb.write(f"downloaded {filename}")
+                    pb.write(f"downloaded {image_path}")
 
     await tqdm.gather(
         *[download_image(item) for item in image_urls],
