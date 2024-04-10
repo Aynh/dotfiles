@@ -1,4 +1,3 @@
-abaddon
 aria2-fast
 betterlockscreen
 boo-sddm-git
@@ -16,11 +15,10 @@ libva-intel-driver-hybrid
 mpv-thumbfast-git
 mpv-uosc
 nohang-git
-packettracer
 pacman-cleanup-hook
 paru-bin
+python-pyclip
 rofi-greenclip
-steamcmd
 ttf-comic-mono-git
 ttf-ms-win10-japanese
 ttf-ms-win10-korean
@@ -28,6 +26,9 @@ ttf-ms-win10-zh_cn
 ttf-ms-win10-zh_tw
 vkd3d-proton-bin
 volta-bin
+waydroid
+waydroid-image
+waydroid-script-git
 wine-ge-custom
 xcursor-genshin-nahida
 xidlehook

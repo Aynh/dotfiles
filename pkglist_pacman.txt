@@ -1,5 +1,7 @@
 alsa-firmware
 alsa-utils
+android-file-transfer
+android-tools
 asciinema
 asciiquarium
 atomicparsley
@@ -10,6 +12,7 @@ bat
 bpython
 broot
 btop
+cage
 chezmoi
 clang
 cmake
@@ -46,11 +49,11 @@ gst-plugins-good
 gst-plugins-ugly
 gstreamer-vaapi
 gvfs
-gvfs-mtp
 i3-wm
 i3status-rust
 inetutils
 iotop
+jdk-openjdk
 jq
 kitty
 ldns
@@ -142,6 +145,7 @@ upower
 upx
 vim
 virtualbox
+virtualbox-guest-iso
 virtualbox-host-dkms
 vkd3d
 vnstat
@@ -161,10 +165,13 @@ xorg-xfontsel
 xorg-xinit
 xorg-xinput
 xorg-xrdb
+xorg-xwayland
 xorg-xwininfo
 xosd
 yq
 yt-dlp
 zenity
+zig
+zls
 zoxide
 zram-generator
