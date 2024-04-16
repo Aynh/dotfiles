@@ -3,7 +3,6 @@ betterlockscreen
 boo-sddm-git
 code-marketplace
 cpulimit
-disktype
 dxvk-bin
 grub-hook
 intel-hybrid-codec-driver-git
