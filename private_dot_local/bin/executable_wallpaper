@@ -31,18 +31,23 @@ async def update_wallpaper():
     from tqdm.asyncio import tqdm
 
     request_counter = 0
-    async def wait_for_every_60th_requests(_request):
-        nonlocal request_counter
-        request_counter += 1
-        await asyncio.sleep((request_counter // 60) * 60)
 
-    async def raise_on_4xx_5xx(response):
+    async def wait_for_every_60th_api_requests(request: httpx.Request):
+        if "json" in request.url.params.keys():
+            nonlocal request_counter
+            request_counter += 1
+            await asyncio.sleep((request_counter // 60) * 60)
+
+    async def raise_on_4xx_5xx(response: httpx.Response):
         response.raise_for_status()
 
     client = httpx.AsyncClient(
         headers={"user-agent": f"{os.path.basename(__file__)} - yet-another"},
         follow_redirects=True,
-        event_hooks={"request": [wait_for_every_60th_requests],"response": [raise_on_4xx_5xx]},
+        event_hooks={
+            "request": [wait_for_every_60th_api_requests],
+            "response": [raise_on_4xx_5xx],
+        },
     )
 
     semaphore = asyncio.Semaphore(4)
@@ -72,7 +77,7 @@ async def update_wallpaper():
             ],
             desc="fetching image feeds",
             disable=None,
-            leave=False
+            leave=False,
         )
     )
 
@@ -88,7 +93,7 @@ async def update_wallpaper():
         *[get_full_image_url(item["id"]) for item in feed_items],
         desc="fetching images data",
         disable=None,
-        leave=False
+        leave=False,
     )
 
     @with_semaphore
@@ -134,7 +139,7 @@ async def update_wallpaper():
         *[download_image(item) for item in image_urls],
         desc="downloading images",
         disable=None,
-        leave=False
+        leave=False,
     )
 
 
@@ -169,20 +174,41 @@ def apply_wallpaper():
     subprocess.Popen(cmds).wait()
 
 
+def with_pidfile(func, name):
+    pidfilename = os.path.join(
+        os.path.dirname(__file__), os.path.basename(__file__) + f".{name}.pid"
+    )
+
+    if os.path.exists(pidfilename):
+        with open(pidfilename, "r") as pidfile:
+            oldpid = int(pidfile.read())
+            try:
+                os.kill(oldpid, 0)
+            except OSError:
+                pass  # there is no process running with oldpid pid
+            else:
+                print(
+                    f"error: another {name} process is already running", file=sys.stderr
+                )
+                exit(1)
+
+    try:
+        with open(pidfilename, "x") as pidfile:
+            pidfile.write(str(os.getpid()))
+        func()
+    finally:
+        os.remove(pidfilename)
+
+
+def with_pidfile_async(func, name):
+    import asyncio
+
+    with_pidfile(lambda: asyncio.run(func()), name)
+
+
 match sys.argv[1]:
     case "apply":
-        lockfile = os.path.join(
-            os.path.dirname(__file__), os.path.basename(__file__) + ".apply.lock"
-        )
-
-        if not os.path.exists(lockfile):
-            try:
-                open(lockfile, "x").close()
-                apply_wallpaper()
-            finally:
-                os.remove(lockfile)
+        with_pidfile(apply_wallpaper, "apply")
 
     case "update":
-        import asyncio
-
-        asyncio.run(update_wallpaper())
+        with_pidfile_async(update_wallpaper, "update")

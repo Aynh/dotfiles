@@ -3,13 +3,14 @@ betterlockscreen
 boo-sddm-git
 code-marketplace
 cpulimit
+disktype
 dxvk-bin
 grub-hook
 intel-hybrid-codec-driver-git
 kmscon-patched-git
 librewolf-bin
 librewolf-extension-bitwarden-bin
-librewolf-extension-dark-reader-bin
+librewolf-extension-darkreader-bin
 librewolf-extension-localcdn-bin
 libva-intel-driver-hybrid
 mpv-thumbfast-git
