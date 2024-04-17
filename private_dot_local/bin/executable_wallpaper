@@ -193,7 +193,7 @@ def with_pidfile(func, name):
                 exit(1)
 
     try:
-        with open(pidfilename, "x") as pidfile:
+        with open(pidfilename, "w") as pidfile:
             pidfile.write(str(os.getpid()))
         func()
     finally:
