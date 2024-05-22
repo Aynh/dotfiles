@@ -25,18 +25,26 @@ async def update_wallpaper():
     import asyncio
     import itertools
     import json
+    import time
     import urllib.parse
 
     import httpx
     from tqdm.asyncio import tqdm
 
     request_counter = 0
+    first_request_time = None
 
     async def wait_for_every_60th_api_requests(request: httpx.Request):
         if "json" in request.url.params.keys():
-            nonlocal request_counter
+            nonlocal request_counter, first_request_time
             request_counter += 1
-            await asyncio.sleep((request_counter // 60) * 60)
+            first_request_time = first_request_time or time.time()
+
+            now = time.time()
+            wait_until = first_request_time + (request_counter // 60) * 60
+            wait_for = wait_until - now
+            if wait_for > 0:
+                await asyncio.sleep(wait_until - now)
 
     async def raise_on_4xx_5xx(response: httpx.Response):
         response.raise_for_status()
@@ -48,6 +56,7 @@ async def update_wallpaper():
             "request": [wait_for_every_60th_api_requests],
             "response": [raise_on_4xx_5xx],
         },
+        timeout=None
     )
 
     semaphore = asyncio.Semaphore(4)

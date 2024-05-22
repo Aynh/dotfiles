@@ -1,5 +1,6 @@
 [Unit]
 Description=Run wallpaper update
+After=network-online.target nss-lookup.target
 
 [Service]
 ExecStart=%h/.local/bin/wallpaper update
